@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebLearning.Contexts;
@@ -22,6 +23,8 @@ namespace WebLearning.Controllers
 
         public async Task<IActionResult> Index(int pageNumber = 1)
         {
+            ViewBag.Title = "Products";
+
             var products = context.Products
                 .Include(x => x.Supplier)
                 .Include(x => x.Category)
@@ -48,6 +51,45 @@ namespace WebLearning.Controllers
                 PageIndex = pageNumber,
                 TotalRecords = totalRecords
             });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Add(ProductCreateModel model = null)
+        {
+            var categories = context.Categories.Select(x => new KeyValuePair<int, string>(x.CategoryId, x.CategoryName));
+            var products = context.Products.Select(x => new KeyValuePair<int, string>(x.ProductId, x.ProductName));
+
+            ViewBag.Title = "Create new product";
+
+            return View(new CreateProductViewModel()
+            {
+                ProductModel = model ?? new ProductCreateModel(),
+                Categories = await categories.ToListAsync(),
+                Suppliers = await products.ToListAsync()
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(ProductCreateModel productModel)
+        {
+            if (!ModelState.IsValid)
+                return RedirectToAction("Add", productModel);
+
+            await context.Products.AddAsync(new Product
+            {
+                Discontinued = productModel.Discontinued,
+                ProductName = productModel.ProductName,
+                ReorderLevel = productModel.ReorderLevel,
+                QuantityPerUnit = productModel.QuantityPerUnit,
+                UnitPrice = productModel.UnitPrice,
+                UnitsInStock = productModel.UnitsInStock,
+                UnitsOnOrder = productModel.UnitsOnOrder,
+                CategoryId = productModel.Category,
+                SupplierId = productModel.Supplier
+            });
+            await context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
         }
     }
 }

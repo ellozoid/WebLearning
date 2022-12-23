@@ -1,6 +1,7 @@
 ﻿@model WebLearning.Models.ProductViewModel
 
 <section>
+    <p style="margin-bottom:10px;margin-left: 10px;"><a href="@Url.Action("Add", "Products")">Add</a></p>
   <header>
     <div class="col">ProductName</div>
     <div class="col">QuantityPerUnit</div>
@@ -11,6 +12,7 @@
     <div class="col">Discontinued</div>
     <div class="col">Supplier</div>
     <div class="col">Category</div>
+    <div class="col"></div>
   </header>
   @foreach(var product in Model.Products)
   {
@@ -24,6 +26,7 @@
         <div class="col">@Html.DisplayFor(x => product.Discontinued)</div>
         <div class="col">@Html.DisplayFor(x => product.Supplier.CompanyName)</div>
         <div class="col">@Html.DisplayFor(x => product.Category.CategoryName)</div>
+        <div class="col" style="font-size:12px;"><a href="@Url.Action("Edit", "Products")">Edit</a></div>
       </div>
   }
   <div style="display: flex; flex-direction: column; flex-wrap: wrap; margin-top: 50px; justify-content: flex-end;">

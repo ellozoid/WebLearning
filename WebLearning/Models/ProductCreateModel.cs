@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebLearning.Models
 {
-    public class Product
+    public class ProductCreateModel
     {
         public int ProductId { get; set; }
 
@@ -22,10 +22,8 @@ namespace WebLearning.Models
 
         public bool Discontinued { get; set; }
 
-        public int SupplierId { get; set; }
-        public int CategoryId { get; set; }
+        public int Supplier { get; set; }
 
-        public Supplier Supplier { get; set; }
-        public Category Category { get; set; }
+        public int Category { get; set; }
     }
 }
