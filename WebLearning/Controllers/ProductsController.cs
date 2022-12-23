@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.Linq;
+using System.Threading.Tasks;
 using WebLearning.Contexts;
+using WebLearning.Models;
 
 namespace WebLearning.Controllers
 {
@@ -17,7 +20,7 @@ namespace WebLearning.Controllers
             this.configuration = configuration;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int pageNumber = 1)
         {
             var products = context.Products
                 .Include(x => x.Supplier)
@@ -29,10 +32,22 @@ namespace WebLearning.Controllers
             if (int.TryParse(amountOfProductsShown, out var productCount) && 
                 productCount != 0)
             {
-                products = products.Take(productCount);
+                products = products.Skip((pageNumber - 1) * productCount).Take(productCount);
             }
-                
-            return View(products.ToList());
+
+            var productsItems = await products.ToListAsync();
+            var totalRecords = await context.Products.CountAsync();
+            var totalPages = (int)Math.Ceiling(totalRecords / (double)productCount);
+            return View(new ProductViewModel()
+            {
+                Products = productsItems,
+                OnPage = productsItems.Count,
+                HasNextPage = pageNumber < totalPages,
+                HasPrevPage = pageNumber > 1,
+                TotalPages = totalPages,
+                PageIndex = pageNumber,
+                TotalRecords = totalRecords
+            });
         }
     }
 }

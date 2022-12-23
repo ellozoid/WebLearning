@@ -1,4 +1,4 @@
-﻿@model List<WebLearning.Models.Product>
+﻿@model WebLearning.Models.ProductViewModel
 
 <section>
   <header>
@@ -12,7 +12,7 @@
     <div class="col">Supplier</div>
     <div class="col">Category</div>
   </header>
-  @foreach(var product in Model)
+  @foreach(var product in Model.Products)
   {
       <div class="row">
         <div class="col">@Html.DisplayFor(x => product.ProductName)</div>
@@ -26,4 +26,20 @@
         <div class="col">@Html.DisplayFor(x => product.Category.CategoryName)</div>
       </div>
   }
+  <div style="display: flex; flex-direction: column; flex-wrap: wrap; margin-top: 50px; justify-content: flex-end;">
+    <div>
+            @if (Model.HasPrevPage)
+            {
+                <a href="@Url.Action("Index", "Products", new { pageNumber = Model.PageIndex - 1 })">Prev</a>
+            }
+            | 
+            @if (Model.HasNextPage)
+            {
+                <a href="@Url.Action("Index", "Products", new { pageNumber = Model.PageIndex + 1 })">Next</a>
+            }
+        </div>
+    <div style="margin-top: 10px;">
+        Current page: @Model.PageIndex, On page: @Model.OnPage, TotalRecords: @Model.TotalRecords, TotalPages: @Model.TotalPages
+    </div>
+  </div>
 </section>
