@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+ <div id="header">
+     <div id="header-logotext header-block">
+         <p style="font-family: monospace; font-size: 30px;">
+             Web learning
+         </p> 
+     </div>
+     <div id="header-nav header-block">
+         @{
+             await Html.RenderPartialAsync("_Menu");
+         }
+     </div>
+ </div>
+<body>
+    <div id="body">
+        @RenderBody()
+    </div>
+</body>
+</html>

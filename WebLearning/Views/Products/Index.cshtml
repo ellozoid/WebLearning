@@ -1,0 +1,29 @@
+﻿@model IEnumerable<WebLearning.Models.Product>
+
+<section>
+  <header>
+    <div class="col">ProductName</div>
+    <div class="col">QuantityPerUnit</div>
+    <div class="col">UnitPrice</div>
+    <div class="col">UnitsInStock</div>
+    <div class="col">UnitsOnOrder</div>
+    <div class="col">ReorderLevel</div>
+    <div class="col">Discontinued</div>
+    <div class="col">Supplier</div>
+    <div class="col">Category</div>
+  </header>
+  @foreach(var product in Model)
+  {
+      <div class="row">
+        <div class="col">@Html.DisplayFor(x => product.ProductName)</div>
+        <div class="col">@Html.DisplayFor(x => product.QuantityPerUnit)</div>
+        <div class="col">@Html.DisplayFor(x => product.UnitPrice)</div>
+        <div class="col">@Html.DisplayFor(x => product.UnitsInStock)</div>
+        <div class="col">@Html.DisplayFor(x => product.UnitsOnOrder)</div>
+        <div class="col">@Html.DisplayFor(x => product.ReorderLevel)</div>
+        <div class="col">@Html.DisplayFor(x => product.Discontinued)</div>
+        <div class="col">@Html.DisplayFor(x => product.Supplier.CompanyName)</div>
+        <div class="col">@Html.DisplayFor(x => product.Category.CategoryName)</div>
+      </div>
+  }
+</section>

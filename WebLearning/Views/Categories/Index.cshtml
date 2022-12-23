@@ -1,0 +1,27 @@
+﻿@model IEnumerable<WebLearning.Models.Category>
+
+@{
+    ViewData["Title"] = "Categories";
+}
+<div style="display:flex;flex-direction: column;flex-wrap: wrap;width:500px;">
+    @foreach(var category in Model)
+    {
+        <div id="category-block">
+            <div id="enumerated-block-icon">
+                @{
+                    var base64 = Convert.ToBase64String(category.Picture, 78, category.Picture.Length - 78);
+                    var imgSrc = String.Format("data:image/jpg;base64,{0}", base64);
+                }
+                <img src="@imgSrc" width="60" height="60">
+            </div>
+            <div id="enumerated-block-data-container" style="display:flex;flex-wrap: wrap;flex-direction:column;justify-content:space-around; margin-left:50px;">
+                <div>
+                    <b>@category.CategoryName</b>
+                </div>
+                <div>
+                    <p style="font-size:13px;">@category.Description</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
