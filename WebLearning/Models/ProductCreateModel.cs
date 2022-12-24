@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,6 +9,9 @@ namespace WebLearning.Models
     {
         public int ProductId { get; set; }
 
+        [Required(ErrorMessage = "Product name is required.")]
+        [MinLength(2)]
+        [MaxLength(40)]
         public string ProductName { get; set; }
 
         public string QuantityPerUnit { get; set; }

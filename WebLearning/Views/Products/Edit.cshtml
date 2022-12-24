@@ -1,1 +1,56 @@
-﻿
+﻿@model WebLearning.Models.CreateProductViewModel
+
+<div class="container">
+  @using(Html.BeginForm("Edit", "Products", FormMethod.Post))
+  {
+    @Html.HiddenFor(x => x.ProductModel.ProductId)
+    <ul class="flex-outer">
+      <li>
+        @Html.ValidationMessageFor(x => x.ProductModel.ProductName)
+        @Html.LabelFor(x => x.ProductModel.ProductName)
+        @Html.EditorFor(x => x.ProductModel.ProductName)
+      </li>
+      <li>
+        @Html.ValidationMessageFor(x => x.ProductModel.QuantityPerUnit)
+        @Html.LabelFor(x => x.ProductModel.QuantityPerUnit)
+        @Html.EditorFor(x => x.ProductModel.QuantityPerUnit)
+      </li>
+      <li>
+        @Html.ValidationMessageFor(x => x.ProductModel.ReorderLevel)
+        @Html.LabelFor(x => x.ProductModel.ReorderLevel)
+        @Html.EditorFor(x => x.ProductModel.ReorderLevel)
+      </li>
+      <li>
+        @Html.ValidationMessageFor(x => x.ProductModel.UnitPrice)
+        @Html.LabelFor(x => x.ProductModel.UnitPrice)
+        @Html.EditorFor(x => x.ProductModel.UnitPrice)
+      </li>
+      <li>
+        @Html.ValidationMessageFor(x => x.ProductModel.UnitsInStock)
+        @Html.LabelFor(x => x.ProductModel.UnitsInStock)
+        @Html.EditorFor(x => x.ProductModel.UnitsInStock)
+      </li>
+      <li>
+        @Html.ValidationMessageFor(x => x.ProductModel.UnitsOnOrder)
+        @Html.LabelFor(x => x.ProductModel.UnitsOnOrder)
+        @Html.EditorFor(x => x.ProductModel.UnitsOnOrder)
+      </li>
+      <li>
+        @Html.ValidationMessageFor(x => x.ProductModel.Discontinued)
+        @Html.LabelFor(x => x.ProductModel.Discontinued)
+        @Html.EditorFor(x => x.ProductModel.Discontinued)
+      </li>
+      <li>
+        @Html.LabelFor(x => x.ProductModel.Category)
+        @Html.DropDownListFor(x => x.ProductModel.Category, new SelectList(Model.Categories, "Key", "Value"))
+      </li>
+      <li>
+        @Html.LabelFor(x => x.ProductModel.Supplier)
+        @Html.DropDownListFor(x => x.ProductModel.Supplier, new SelectList(Model.Suppliers, "Key", "Value"))
+      </li>
+      <li>
+        <button type="submit">Submit</button>
+      </li>
+    </ul>
+  }
+</div>

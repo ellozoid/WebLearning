@@ -26,7 +26,7 @@
         <div class="col">@Html.DisplayFor(x => product.Discontinued)</div>
         <div class="col">@Html.DisplayFor(x => product.Supplier.CompanyName)</div>
         <div class="col">@Html.DisplayFor(x => product.Category.CategoryName)</div>
-        <div class="col" style="font-size:12px;"><a href="@Url.Action("Edit", "Products")">Edit</a></div>
+        <div class="col" style="font-size:12px;"><a href="@Url.Action("Edit", "Products", new {id = product.ProductId})">Edit</a></div>
       </div>
   }
   <div style="display: flex; flex-direction: column; flex-wrap: wrap; margin-top: 50px; justify-content: flex-end;">

@@ -1,7 +1,7 @@
 ﻿@model WebLearning.Models.CreateProductViewModel
 
 <div class="container">
-  @using(Html.BeginForm("Create", "Products"))
+  @using(Html.BeginForm("Create", "Products", FormMethod.Post))
   {
     @Html.HiddenFor(x => x.ProductModel.ProductId)
     <ul class="flex-outer">
@@ -38,7 +38,7 @@
       <li>
         @Html.ValidationMessageFor(x => x.ProductModel.Discontinued)
         @Html.LabelFor(x => x.ProductModel.Discontinued)
-        @Html.EditorFor(x => x.ProductModel.ProductName)
+        @Html.EditorFor(x => x.ProductModel.Discontinued)
       </li>
       <li>
         @Html.LabelFor(x => x.ProductModel.Category)
